@@ -48,17 +48,33 @@
 #define FAT_MAGIC	0xcafebabe
 #define FAT_CIGAM	0xbebafeca	/* NXSwapLong(FAT_MAGIC) */
 
-struct fat_header {
-	uint32_t	magic;		/* FAT_MAGIC */
-	uint32_t	nfat_arch;	/* number of structs that follow */
-};
+//===-- llvm/Support/MachO.h - The MachO file format ------------*- C++ -*-===//
+//
+//                     The LLVM Compiler Infrastructure
+//
+// This file is distributed under the University of Illinois Open Source
+// License. See LICENSE.TXT for details.
+//
+//===----------------------------------------------------------------------===//
+    struct fat_header {
+      uint32_t magic;
+      uint32_t nfat_arch;
+    };
 
-struct fat_arch {
-	cpu_type_t	cputype;	/* cpu specifier (int) */
-	cpu_subtype_t	cpusubtype;	/* machine specifier (int) */
-	uint32_t	offset;		/* file offset to this object file */
-	uint32_t	size;		/* size of this object file */
-	uint32_t	align;		/* alignment as a power of 2 */
-};
+    struct fat_arch {
+     uint32_t cputype;
+     uint32_t cpusubtype;
+     uint32_t offset;
+     uint32_t size;
+     uint32_t align;
+    };
 
+    struct fat_arch_64 {
+      uint32_t cputype;
+      uint32_t cpusubtype;
+      uint64_t offset;
+      uint64_t size;
+      uint32_t align;
+      uint32_t reserved;
+    };
 #endif /* _MACH_O_FAT_H_ */
