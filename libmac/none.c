@@ -51,7 +51,6 @@ __RCSID("$NetBSD: runenone.c,v 1.2 2000/12/21 11:29:47 itojun Exp $");
 #include <errno.h>
 #include <stdlib.h>
 
-/* ARGSUSED */
 rune_t
 _none_sgetrune(string, n, result)
 	const char *string;
@@ -68,7 +67,6 @@ _none_sgetrune(string, n, result)
 	return(*string & 0xff);
 }
 
-/* ARGSUSED */
 int
 _none_sputrune(c, string, n, result)
 	rune_t c;
