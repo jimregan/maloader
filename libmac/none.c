@@ -53,12 +53,10 @@ __RCSID("$NetBSD: runenone.c,v 1.2 2000/12/21 11:29:47 itojun Exp $");
 
 /* ARGSUSED */
 rune_t
-_none_sgetrune(rl, string, n, result, state)
-	_RuneLocale *rl;
+_none_sgetrune(string, n, result)
 	const char *string;
 	size_t n;
 	char const **result;
-	void *state;
 {
 	if (n < 1) {
 		if (result)
@@ -72,12 +70,10 @@ _none_sgetrune(rl, string, n, result, state)
 
 /* ARGSUSED */
 int
-_none_sputrune(rl, c, string, n, result, state)
-	_RuneLocale *rl;
+_none_sputrune(c, string, n, result)
 	rune_t c;
 	char *string, **result;
 	size_t n;
-	void *state;
 {
 	if (n >= 1) {
 		if (string)
