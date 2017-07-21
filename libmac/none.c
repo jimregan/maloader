@@ -1,27 +1,8 @@
-/*
- * Copyright (c) 1999 Apple Computer, Inc. All rights reserved.
- *
- * @APPLE_LICENSE_HEADER_START@
- *
- * The contents of this file constitute Original Code as defined in and
- * are subject to the Apple Public Source License Version 1.1 (the
- * "License").  You may not use this file except in compliance with the
- * License.  Please obtain a copy of the License at
- * http://www.apple.com/publicsource and read it before using this file.
- *
- * This Original Code and all software distributed under the License are
- * distributed on an "AS IS" basis, WITHOUT WARRANTY OF ANY KIND, EITHER
- * EXPRESS OR IMPLIED, AND APPLE HEREBY DISCLAIMS ALL SUCH WARRANTIES,
- * INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE OR NON-INFRINGEMENT.  Please see the
- * License for the specific language governing rights and limitations
- * under the License.
- *
- * @APPLE_LICENSE_HEADER_END@
- */
-/*
+/*	$NetBSD: runenone.c,v 1.2 2000/12/21 11:29:47 itojun Exp $	*/
+
+/*-
  * Copyright (c) 1993
- *      The Regents of the University of California.  All rights reserved.
+ *	The Regents of the University of California.  All rights reserved.
  *
  * This code is derived from software contributed to Berkeley by
  * Paul Borman at Krystal Technologies.
@@ -36,8 +17,8 @@
  *    documentation and/or other materials provided with the distribution.
  * 3. All advertising materials mentioning features or use of this software
  *    must display the following acknowledgement:
- *      This product includes software developed by the University of
- *      California, Berkeley and its contributors.
+ *	This product includes software developed by the University of
+ *	California, Berkeley and its contributors.
  * 4. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
@@ -55,34 +36,55 @@
  * SUCH DAMAGE.
  */
 
+#include <sys/cdefs.h>
+#if defined(LIBC_SCCS) && !defined(lint)
+#if 0
+static char sccsid[] = "@(#)none.c	8.1 (Berkeley) 6/4/93";
+#else
+__RCSID("$NetBSD: runenone.c,v 1.2 2000/12/21 11:29:47 itojun Exp $");
+#endif
+#endif /* LIBC_SCCS and not lint */
+
+#include <stddef.h>
+#include <stdio.h>
+#include "rune.h"
+#include <errno.h>
+#include <stdlib.h>
+
+/* ARGSUSED */
 rune_t
-_none_sgetrune(string, n, result)
-        const char *string;
-        size_t n;
-        char const **result;
+_none_sgetrune(rl, string, n, result, state)
+	_RuneLocale *rl;
+	const char *string;
+	size_t n;
+	char const **result;
+	void *state;
 {
-        if (n < 1) {
-                if (result)
-                        *result = string;
-                return(_INVALID_RUNE);
-        }
-        if (result)
-                *result = string + 1;
-        return(*string & 0xff);
+	if (n < 1) {
+		if (result)
+			*result = string;
+		return(_INVALID_RUNE);
+	}
+	if (result)
+		*result = string + 1;
+	return(*string & 0xff);
 }
 
+/* ARGSUSED */
 int
-_none_sputrune(c, string, n, result)
-        rune_t c;
-        char *string, **result;
-        size_t n;
+_none_sputrune(rl, c, string, n, result, state)
+	_RuneLocale *rl;
+	rune_t c;
+	char *string, **result;
+	size_t n;
+	void *state;
 {
-        if (n >= 1) {
-                if (string)
-                        *string = c;
-                if (result)
-                        *result = string + 1;
-        } else if (result)
-                *result = (char *)0;
-        return(1);
+	if (n >= 1) {
+		if (string)
+			*string = c;
+		if (result)
+			*result = string + 1;
+	} else if (result)
+		*result = (char *)0;
+	return(1);
 }
